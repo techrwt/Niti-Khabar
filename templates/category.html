@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% from "_macros.html" import card, pager %}
+{% block main %}
+<header class="lh"><h1>{{ heading }}{% if pg.n > 1 %} <span>(पेज {{ pg.n }})</span>{% endif %}</h1>{% if blurb %}<p>{{ blurb }}</p>{% endif %}</header>
+{% if items %}<div class="grid g3">{% for a in items %}{{ card(a) }}{% endfor %}</div>{{ pager(pg) }}
+{% else %}<section class="empty"><h2>इस श्रेणी में अभी कोई खबर नहीं है</h2><p>जल्द ही यहाँ खबरें जुड़ेंगी। तब तक <a href="{{ url('/') }}">होम पेज</a> देखें।</p></section>{% endif %}
+{% endblock %}

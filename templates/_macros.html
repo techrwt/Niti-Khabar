@@ -1,0 +1,21 @@
+{% macro card(a, small=False) %}
+<article class="card{% if small %} sm{% endif %}">
+<a class="cimg" href="{{ url(a.path) }}" tabindex="-1" aria-hidden="true">{{ img(a, '(min-width:1024px) 320px, 50vw' if small else '(min-width:1024px) 320px, 100vw') }}</a>
+<div class="cbody">
+<a class="cat" href="{{ url('/category/' ~ a.category ~ '/') }}">{{ a.cat_name }}</a>
+<h3><a href="{{ url(a.path) }}">{{ a.title }}</a></h3>
+<time datetime="{{ a.published.isoformat() }}">{{ a.date_hi }}</time>
+</div>
+</article>
+{% endmacro %}
+{% macro row(a) %}
+<li class="row" data-slug="{{ a.slug }}">
+<a class="rthumb" href="{{ url(a.path) }}" tabindex="-1" aria-hidden="true">{{ img(a, '120px', thumb=True) }}</a>
+<div><a class="cat" href="{{ url('/category/' ~ a.category ~ '/') }}">{{ a.cat_name }}</a>
+<h3><a href="{{ url(a.path) }}">{{ a.title }}</a></h3>
+<time datetime="{{ a.published.isoformat() }}">{{ a.date_hi }}</time></div>
+</li>
+{% endmacro %}
+{% macro pager(p) %}
+{% if p.total > 1 %}<nav class="pager" aria-label="पेज"><span>{% if p.prev %}<a href="{{ p.prev }}" rel="prev">‹ पिछला</a>{% endif %}</span><span>पेज {{ p.n }} / {{ p.total }}</span><span>{% if p.next %}<a href="{{ p.next }}" rel="next">अगला ›</a>{% endif %}</span></nav>{% endif %}
+{% endmacro %}

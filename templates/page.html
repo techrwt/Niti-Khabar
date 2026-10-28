@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% from "_macros.html" import row %}
+{% block main %}
+<div class="narrow">
+<nav class="crumb" aria-label="ब्रेडक्रम्ब"><a href="{{ url('/') }}">होम</a> › {{ page.title }}</nav>
+<h1>{{ page.title }}</h1>
+<div class="body">{{ page.html|safe }}</div>
+{% if page.slug == 'contact' and site.form_endpoint %}
+<form class="cform" method="post" action="{{ site.form_endpoint }}"><h2>संदेश भेजें</h2>
+<label>आपका नाम<input name="name" required autocomplete="name"></label>
+<label>ईमेल<input name="email" type="email" required autocomplete="email"></label>
+<label>संदेश<textarea name="message" rows="5" required></textarea></label>
+<button type="submit">भेजें</button></form>{% endif %}
+{% if page.slug == 'sitemap' %}
+<h2>श्रेणियाँ</h2><ul class="catlist">{% for c in cats %}<li><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul>
+<h2>ज़रूरी पेज</h2><ul class="catlist">{% for p in pages %}{% if p.slug != 'sitemap' %}<li><a href="{{ url('/' ~ p.slug ~ '/') }}">{{ p.title }}</a></li>{% endif %}{% endfor %}<li><a href="{{ url('/archive/') }}">सभी खबरों का आर्काइव</a></li></ul>
+{% if sm_latest %}<h2>ताज़ा खबरें</h2><ul class="catlist">{% for a in sm_latest %}<li><a href="{{ url(a.path) }}">{{ a.title }}</a></li>{% endfor %}</ul>{% endif %}
+{% endif %}
+{% if page.slug == 'search' %}
+<form class="sform" action="{{ url('/search/') }}" method="get" role="search"><label class="vh" for="q">खोजें</label><input id="q" name="q" type="search" placeholder="खबर या विषय खोजें" autocomplete="off"><button type="submit">खोजें</button></form>
+<p id="s-status" class="note"></p><ul class="rows" id="s-results"></ul>
+<noscript><p>खोज के लिए JavaScript चालू होना चाहिए। आप <a href="{{ url('/archive/') }}">आर्काइव</a> से भी खबरें ढूँढ सकते हैं।</p></noscript>
+{% endif %}
+</div>
+{% endblock %}

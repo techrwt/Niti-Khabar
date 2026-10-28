@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% from "_macros.html" import card, row %}
+{% block main %}
+<div class="layout">
+<article class="art">
+<nav class="crumb" aria-label="ब्रेडक्रम्ब"><a href="{{ url('/') }}">होम</a> › <a href="{{ url('/category/' ~ a.category ~ '/') }}">{{ a.cat_name }}</a></nav>
+<h1>{{ a.title }}</h1>
+<p class="meta"><a class="cat" href="{{ url('/category/' ~ a.category ~ '/') }}">{{ a.cat_name }}</a>
+<span><a href="{{ url('/editorial-policy/') }}">{{ site.site_name }} डेस्क</a></span>
+<span><time datetime="{{ a.published.isoformat() }}">{{ a.date_hi }}</time></span>
+{% if a.updated %}<span>अपडेट: <time datetime="{{ a.updated.isoformat() }}">{{ a.updated_hi }}</time></span>{% endif %}
+<span>{{ a.read_min }} मिनट का पाठ</span></p>
+<p class="dek">{{ a.summary }}</p>
+<figure class="lede">{{ img(a, '(min-width:1024px) 720px, 100vw', lead=True, alt=a.image_alt) }}</figure>
+<aside class="kp" aria-labelledby="kp-h"><h2 id="kp-h">एक नज़र में</h2><ul>{% for k in a.key_points %}<li>{{ k }}</li>{% endfor %}</ul></aside>
+<div class="body">{{ a.body_html|safe }}</div>
+{% if a.explainer %}<section class="box" aria-labelledby="ex-h"><h2 id="ex-h">इसका मतलब क्या है</h2><p>{{ a.explainer }}</p></section>{% endif %}
+{% if a.glossary %}<section class="box" aria-labelledby="gl-h"><h2 id="gl-h">शब्दों का मतलब</h2><dl>{% for g in a.glossary %}<dt>{{ g.term }}</dt><dd>{{ g.meaning }}</dd>{% endfor %}</dl></section>{% endif %}
+{% if a.timeline %}<section class="box" aria-labelledby="tl-h"><h2 id="tl-h">घटनाक्रम</h2><ol class="tl">{% for t in a.timeline %}<li><strong>{{ t.date }}</strong> {{ t.event }}</li>{% endfor %}</ol></section>{% endif %}
+{% if a.faq %}<section class="box" aria-labelledby="fq-h"><h2 id="fq-h">अक्सर पूछे जाने वाले सवाल</h2>{% for f in a.faq %}<details><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>{% endfor %}</section>{% endif %}
+<section class="src" aria-labelledby="src-h"><h2 id="src-h">स्रोत</h2>
+<p><a href="{{ a.source_link }}" rel="noopener noreferrer" target="_blank">{{ a.source }}</a></p>
+{% if a.extra_sources %}<ul>{% for s in a.extra_sources %}<li><a href="{{ s.link }}" rel="noopener noreferrer" target="_blank">{{ s.name }}</a></li>{% endfor %}</ul>{% endif %}
+<p class="note">खबर में गलती दिखे तो <a href="{{ url('/corrections-policy/') }}">सुधार नीति</a> देखें।</p></section>
+{% if a.tag_links %}<ul class="tags">{% for t in a.tag_links %}<li>{% if t.url %}<a href="{{ t.url }}">{{ t.name }}</a>{% else %}<span>{{ t.name }}</span>{% endif %}</li>{% endfor %}</ul>{% endif %}
+<div class="share" aria-label="शेयर करें"><span>शेयर करें:</span>
+<a href="https://wa.me/?text={{ (a.title ~ ' ' ~ a.abs_url)|urlencode }}" rel="noopener" target="_blank">WhatsApp</a>
+<a href="https://t.me/share/url?url={{ a.abs_url|urlencode }}&amp;text={{ a.title|urlencode }}" rel="noopener" target="_blank">Telegram</a>
+<a href="https://twitter.com/intent/tweet?url={{ a.abs_url|urlencode }}&amp;text={{ a.title|urlencode }}" rel="noopener" target="_blank">X</a>
+<button type="button" data-copy="{{ a.abs_url }}">लिंक कॉपी करें</button></div>
+{% if prev_a or next_a %}<nav class="pn" aria-label="आगे-पीछे">
+<span>{% if next_a %}<a href="{{ url(next_a.path) }}" rel="prev"><small>पिछली खबर</small>{{ next_a.title }}</a>{% endif %}</span>
+<span>{% if prev_a %}<a href="{{ url(prev_a.path) }}" rel="next"><small>अगली खबर</small>{{ prev_a.title }}</a>{% endif %}</span></nav>{% endif %}
+{% if related %}<section class="block" aria-labelledby="rel-h"><h2 class="bh" id="rel-h">ये भी पढ़ें</h2><div class="grid">{% for r in related %}{{ card(r) }}{% endfor %}</div></section>{% endif %}
+</article>
+<aside class="sb" aria-label="साइडबार">
+<section><h2 class="bh">ताज़ा खबरें</h2><ul class="rows">{% for r in sidebar_latest %}{{ row(r) }}{% endfor %}</ul></section>
+<section><h2 class="bh">श्रेणियाँ</h2><ul class="catlist">{% for c in cats %}<li><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul></section>
+</aside>
+</div>
+{% endblock %}

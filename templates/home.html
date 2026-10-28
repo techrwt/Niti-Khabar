@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "_macros.html" import card, row %}
+{% block main %}
+<h1 class="vh">{{ site.site_name }}: {{ site.tagline }}</h1>
+{% if not latest %}
+<section class="empty"><h2>जल्द ही खबरें आएँगी</h2><p>हम पहली खबरें तैयार कर रहे हैं। कुछ देर बाद दोबारा आइए।</p></section>
+{% else %}
+<section class="top" aria-label="मुख्य खबरें">
+<article class="lead">
+<a class="cimg" href="{{ url(latest[0].path) }}" tabindex="-1" aria-hidden="true">{{ img(latest[0], '(min-width:1024px) 760px, 100vw', lead=True) }}</a>
+<a class="cat" href="{{ url('/category/' ~ latest[0].category ~ '/') }}">{{ latest[0].cat_name }}</a>
+<h2><a href="{{ url(latest[0].path) }}">{{ latest[0].title }}</a></h2>
+<p>{{ latest[0].summary }}</p>
+<time datetime="{{ latest[0].published.isoformat() }}">{{ latest[0].date_hi }}</time>
+</article>
+{% if latest[1:4] %}<div class="side2">{% for a in latest[1:4] %}{{ card(a, small=True) }}{% endfor %}</div>{% endif %}
+</section>
+{% if latest[4:] %}
+<section class="block" aria-labelledby="h-latest">
+<h2 class="bh" id="h-latest">ताज़ा खबरें</h2>
+<ul class="rows" id="latest-list">{% for a in latest[4:] %}{{ row(a) }}{% endfor %}</ul>
+<p class="more"><button type="button" id="more" hidden>और खबरें</button><a class="alink" id="archive-link" href="{{ url('/archive/') }}">सभी खबरों का आर्काइव</a></p>
+</section>
+{% endif %}
+{% for s in sections %}
+<section class="block" aria-labelledby="h-{{ s.slug }}">
+<h2 class="bh" id="h-{{ s.slug }}"><a href="{{ url('/category/' ~ s.slug ~ '/') }}">{{ s.name }}</a></h2>
+<div class="grid">{% for a in s.arts %}{{ card(a) }}{% endfor %}</div>
+</section>
+{% endfor %}
+{% endif %}
+{% endblock %}

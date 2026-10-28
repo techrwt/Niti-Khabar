@@ -4,6 +4,7 @@ var d=document;
 function $(s,r){return (r||d).querySelector(s)}
 function el(t,c,x){var e=d.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e}
 var meta=null;
+(function(){var t=d.getElementById("today");if(!t)return;try{t.textContent=new Date().toLocaleDateString("hi-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"Asia/Kolkata"})}catch(e){}})();
 function manifest(){
   if(meta)return meta;
   var b=d.querySelector('link[rel="manifest"]').getAttribute("href").replace(/\/site\.webmanifest$/,"");
@@ -11,7 +12,7 @@ function manifest(){
   return meta;
 }
 function row(a,b){
-  var li=el("li","row");li.dataset.slug=a.slug;
+  var li=el("li","row");li.dataset.slug=a.slug;li.dataset.c=a.category;
   var t=el("a","rthumb");t.href=a.url;t.tabIndex=-1;t.setAttribute("aria-hidden","true");
   if(a.image){var i=el("img");i.src=a.image;i.alt="";i.loading="lazy";i.decoding="async";i.width=a.tw||400;i.height=a.th||225;t.appendChild(i)}
   var w=el("div");

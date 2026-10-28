@@ -12,7 +12,7 @@
 <label>संदेश<textarea name="message" rows="5" required></textarea></label>
 <button type="submit">भेजें</button></form>{% endif %}
 {% if page.slug == 'sitemap' %}
-<h2>श्रेणियाँ</h2><ul class="catlist">{% for c in cats %}<li><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul>
+<h2>श्रेणियाँ</h2><ul class="catlist">{% for c in cats %}<li data-c="{{ c.slug }}"><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul>
 <h2>ज़रूरी पेज</h2><ul class="catlist">{% for p in pages %}{% if p.slug != 'sitemap' %}<li><a href="{{ url('/' ~ p.slug ~ '/') }}">{{ p.title }}</a></li>{% endif %}{% endfor %}<li><a href="{{ url('/archive/') }}">सभी खबरों का आर्काइव</a></li></ul>
 {% if sm_latest %}<h2>ताज़ा खबरें</h2><ul class="catlist">{% for a in sm_latest %}<li><a href="{{ url(a.path) }}">{{ a.title }}</a></li>{% endfor %}</ul>{% endif %}
 {% endif %}

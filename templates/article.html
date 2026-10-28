@@ -2,7 +2,7 @@
 {% from "_macros.html" import card, row %}
 {% block main %}
 <div class="layout">
-<article class="art">
+<article class="art" data-c="{{ a.category }}">
 <nav class="crumb" aria-label="ब्रेडक्रम्ब"><a href="{{ url('/') }}">होम</a> › <a href="{{ url('/category/' ~ a.category ~ '/') }}">{{ a.cat_name }}</a></nav>
 <h1>{{ a.title }}</h1>
 <p class="meta"><a class="cat" href="{{ url('/category/' ~ a.category ~ '/') }}">{{ a.cat_name }}</a>
@@ -14,10 +14,10 @@
 <figure class="lede">{{ img(a, '(min-width:1024px) 720px, 100vw', lead=True, alt=a.image_alt) }}</figure>
 <aside class="kp" aria-labelledby="kp-h"><h2 id="kp-h">एक नज़र में</h2><ul>{% for k in a.key_points %}<li>{{ k }}</li>{% endfor %}</ul></aside>
 <div class="body">{{ a.body_html|safe }}</div>
-{% if a.explainer %}<section class="box" aria-labelledby="ex-h"><h2 id="ex-h">इसका मतलब क्या है</h2><p>{{ a.explainer }}</p></section>{% endif %}
-{% if a.glossary %}<section class="box" aria-labelledby="gl-h"><h2 id="gl-h">शब्दों का मतलब</h2><dl>{% for g in a.glossary %}<dt>{{ g.term }}</dt><dd>{{ g.meaning }}</dd>{% endfor %}</dl></section>{% endif %}
-{% if a.timeline %}<section class="box" aria-labelledby="tl-h"><h2 id="tl-h">घटनाक्रम</h2><ol class="tl">{% for t in a.timeline %}<li><strong>{{ t.date }}</strong> {{ t.event }}</li>{% endfor %}</ol></section>{% endif %}
-{% if a.faq %}<section class="box" aria-labelledby="fq-h"><h2 id="fq-h">अक्सर पूछे जाने वाले सवाल</h2>{% for f in a.faq %}<details><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>{% endfor %}</section>{% endif %}
+{% if a.explainer %}<section class="box ex" aria-labelledby="ex-h"><h2 id="ex-h">इसका मतलब क्या है</h2><p>{{ a.explainer }}</p></section>{% endif %}
+{% if a.glossary %}<section class="box gl" aria-labelledby="gl-h"><h2 id="gl-h">शब्दों का मतलब</h2><dl>{% for g in a.glossary %}<dt>{{ g.term }}</dt><dd>{{ g.meaning }}</dd>{% endfor %}</dl></section>{% endif %}
+{% if a.timeline %}<section class="box tlb" aria-labelledby="tl-h"><h2 id="tl-h">घटनाक्रम</h2><ol class="tl">{% for t in a.timeline %}<li><strong>{{ t.date }}</strong> {{ t.event }}</li>{% endfor %}</ol></section>{% endif %}
+{% if a.faq %}<section class="box fq" aria-labelledby="fq-h"><h2 id="fq-h">अक्सर पूछे जाने वाले सवाल</h2>{% for f in a.faq %}<details><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>{% endfor %}</section>{% endif %}
 <section class="src" aria-labelledby="src-h"><h2 id="src-h">स्रोत</h2>
 <p><a href="{{ a.source_link }}" rel="noopener noreferrer" target="_blank">{{ a.source }}</a></p>
 {% if a.extra_sources %}<ul>{% for s in a.extra_sources %}<li><a href="{{ s.link }}" rel="noopener noreferrer" target="_blank">{{ s.name }}</a></li>{% endfor %}</ul>{% endif %}
@@ -35,7 +35,7 @@
 </article>
 <aside class="sb" aria-label="साइडबार">
 <section><h2 class="bh">ताज़ा खबरें</h2><ul class="rows">{% for r in sidebar_latest %}{{ row(r) }}{% endfor %}</ul></section>
-<section><h2 class="bh">श्रेणियाँ</h2><ul class="catlist">{% for c in cats %}<li><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul></section>
+<section><h2 class="bh">श्रेणियाँ</h2><ul class="catlist">{% for c in cats %}<li data-c="{{ c.slug }}"><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul></section>
 </aside>
 </div>
 {% endblock %}

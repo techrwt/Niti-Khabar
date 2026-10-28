@@ -1,0 +1,11 @@
+[
+  {"slug": "sarkari-khabar", "name": "सरकारी खबर", "description": "प्रधानमंत्री कार्यालय, PIB और सरकारी विभागों की घोषणाएँ, योजनाएँ और फैसले, सरल हिंदी में।", "order": 1, "enabled": true},
+  {"slug": "business-news", "name": "बिज़नेस और बाज़ार", "description": "RBI, SEBI, शेयर बाज़ार और वैश्विक केंद्रीय बैंकों के फैसलों की खबरें, आम पाठक के लिए आसान भाषा में।", "order": 2, "enabled": true},
+  {"slug": "duniya-khabar", "name": "दुनिया की खबर", "description": "संयुक्त राष्ट्र, अमेरिका, रूस और बड़े देशों की आधिकारिक घोषणाओं पर आधारित अंतरराष्ट्रीय खबरें।", "order": 3, "enabled": true},
+  {"slug": "tech-news", "name": "टेक और AI", "description": "OpenAI, Google, Microsoft, Apple और NVIDIA जैसी कंपनियों की घोषणाएँ और AI की ताज़ा खबरें।", "order": 4, "enabled": true},
+  {"slug": "vigyan-space", "name": "विज्ञान और अंतरिक्ष", "description": "NASA, ISRO और वैज्ञानिक संस्थानों की खोजें और मिशन, आसान हिंदी में।", "order": 5, "enabled": true},
+  {"slug": "swasthya-khabar", "name": "स्वास्थ्य", "description": "WHO और FDA जैसी संस्थाओं की स्वास्थ्य संबंधी घोषणाएँ और सलाह, भरोसेमंद स्रोत के साथ।", "order": 6, "enabled": true},
+  {"slug": "mausam-aapda", "name": "मौसम और आपदा", "description": "IMD के पूर्वानुमान, चेतावनियाँ और भूकंप जैसी प्राकृतिक आपदाओं की खबरें।", "order": 7, "enabled": true},
+  {"slug": "court-kanoon", "name": "कोर्ट और कानून", "description": "सुप्रीम कोर्ट के फैसले और कानूनी खबरें, आसान भाषा में समझाई गईं।", "order": 8, "enabled": true},
+  {"slug": "chunav-khabar", "name": "चुनाव", "description": "चुनाव आयोग की घोषणाएँ और चुनाव से जुड़ी खबरें। (अभी बंद, भविष्य के लिए)", "order": 9, "enabled": false}
+]

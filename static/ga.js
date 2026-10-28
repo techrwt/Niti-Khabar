@@ -1,0 +1,1 @@
+(function(){var s=document.currentScript,id=s&&s.getAttribute("data-id");if(!id)return;window.dataLayer=window.dataLayer||[];function g(){dataLayer.push(arguments)}g("js",new Date());g("config",id,{anonymize_ip:true})})();

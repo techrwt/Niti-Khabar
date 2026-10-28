@@ -529,7 +529,7 @@ def main():
     robots = "User-agent: *\nAllow: /\n" + f"Disallow: {base}/search/\n\n" + "".join(f"Sitemap: {absu('/' + s)}\n" for s in ["sitemap.xml", "news-sitemap.xml"])
     write("/robots.txt", robots)
     write("/site.webmanifest", json.dumps({"name": site["site_name"], "short_name": site["site_name"][:12], "lang": "hi", "start_url": url("/"), "scope": url("/"), "display": "standalone",
-                                           "background_color": "#FFFFFF", "theme_color": "#0B1F3A",
+                                           "background_color": "#FFFFFF", "theme_color": "#0A2260",
                                            "icons": [{"src": url("/icons/icon-192.png"), "sizes": "192x192", "type": "image/png"}, {"src": url("/icons/icon-512.png"), "sizes": "512x512", "type": "image/png"}]}, ensure_ascii=False, indent=1))
     write("/.nojekyll", "")
     if domain:

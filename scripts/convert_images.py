@@ -1,9 +1,9 @@
 """Step 1: assets/images ki saari images ko WebP me badlo (original tabhi delete jab WebP verify ho jaye)."""
 import sys
 from pathlib import Path
-from PIL import Image, ImageOps, UnidentifiedImageError
+from PIL import Image, ImageDraw, ImageOps, UnidentifiedImageError
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import IMG_DIR, SRC_EXT, KEEP_NAMES, Report, normalize_name
+from common import IMG_DIR, SRC_EXT, KEEP_NAMES, Report, normalize_name, load_site
 
 try:
     import pillow_heif
@@ -14,6 +14,48 @@ except Exception:
 
 MAX_SIDE = 1600
 
+# ---- Logo watermark: nayi image WebP banti hai tabhi ek baar lagta hai (original delete hone se dobara kabhi nahi lagta)
+_LOGO = {"img": None, "loaded": False, "on": True}
+
+
+def _logo():
+    if not _LOGO["loaded"]:
+        _LOGO["loaded"] = True
+        try:
+            _LOGO["on"] = bool(load_site().get("logo_watermark", True))
+        except Exception:
+            _LOGO["on"] = True
+        lp = IMG_DIR / "Logo.png"
+        if _LOGO["on"] and lp.exists():
+            try:
+                with Image.open(lp) as lg:
+                    _LOGO["img"] = lg.convert("RGBA").copy()
+            except Exception:
+                _LOGO["img"] = None
+    return _LOGO["img"]
+
+
+def stamp_logo(im):
+    """Neeche-daayein kone me safed plate par chhota Logo. Site 16:9 me crop karti hai, isliye kinara andar rakha hai."""
+    logo = _logo()
+    if logo is None or im.width < 500:
+        return im
+    base = im.convert("RGBA")
+    W, H = base.size
+    lw = max(150, int(W * 0.17))
+    lg = logo.copy()
+    lg.thumbnail((lw, lw), Image.LANCZOS)
+    pad_x, pad_y = max(8, int(lg.height * 0.22)), max(6, int(lg.height * 0.16))
+    pw, ph = lg.width + 2 * pad_x, lg.height + 2 * pad_y
+    x = W - pw - int(W * 0.035)
+    y = H - ph - int(H * 0.095)
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ld = ImageDraw.Draw(layer)
+    ld.rounded_rectangle((x, y, x + pw, y + ph), radius=max(8, int(ph * 0.22)), fill=(255, 255, 255, 232))
+    layer.alpha_composite(lg, (x + pad_x, y + pad_y))
+    out = Image.alpha_composite(base, layer)
+    return out if im.mode in ("RGBA", "LA", "PA") else out.convert("RGB")
+
 
 def to_webp(src: Path, dst: Path):
     with Image.open(src) as im:
@@ -21,6 +63,7 @@ def to_webp(src: Path, dst: Path):
         has_alpha = im.mode in ("RGBA", "LA", "PA") or (im.mode == "P" and "transparency" in im.info)
         im = im.convert("RGBA" if has_alpha else "RGB")
         im.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
+        im = stamp_logo(im)
         im.save(dst, "WEBP", quality=82, method=6)  # metadata/EXIF save nahi hota = strip
 
 

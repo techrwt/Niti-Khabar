@@ -8,7 +8,7 @@
 <link rel="canonical" href="{{ canonical }}">
 <meta name="robots" content="{{ 'noindex,follow' if noindex else 'index,follow,max-image-preview:large' }}">
 {% if prev_url %}<link rel="prev" href="{{ prev_url }}">{% endif %}{% if next_url %}<link rel="next" href="{{ next_url }}">{% endif %}
-<meta name="theme-color" content="#0B1F3A">
+<meta name="theme-color" content="#0A2260">
 <meta property="og:site_name" content="{{ site.site_name }}">
 <meta property="og:locale" content="hi_IN">
 <meta property="og:type" content="{{ og_type|default('website') }}">
@@ -26,6 +26,9 @@
 <link rel="apple-touch-icon" href="{{ url('/apple-touch-icon.png') }}">
 <link rel="manifest" href="{{ url('/site.webmanifest') }}">
 <link rel="alternate" type="application/rss+xml" title="{{ site.site_name }} RSS" href="{{ url('/feed.xml') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700;800&family=Noto+Serif+Devanagari:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="{{ url('/' ~ assets.css) }}">
 {% for j in jsonld %}<script type="application/ld+json">{{ j|tojson_ld }}</script>
 {% endfor %}
@@ -35,6 +38,7 @@
 <body>
 <a class="skip" href="#main">मुख्य सामग्री पर जाएँ</a>
 <header class="mast">
+<div class="topbar"><div class="wrap topbar-in"><time id="today"></time><a href="{{ url('/feed.xml') }}">RSS फ़ीड</a></div></div>
 <div class="mastbar"><div class="wrap mast-in">
 <a class="brand" href="{{ url('/') }}" aria-label="{{ site.site_name }} होम">
 {% if logo %}<img src="{{ url('/img/logo.webp') }}" alt="{{ site.site_name }}" width="{{ logo.w }}" height="{{ logo.h }}" decoding="async">{% else %}<span class="word">{{ site.site_name }}</span>{% endif %}
@@ -45,7 +49,7 @@
 <div class="wrap nav-in">
 <ul>
 <li><a href="{{ url('/') }}"{% if nav_active == 'home' %} aria-current="page"{% endif %}>होम</a></li>
-{% for c in cats %}<li><a href="{{ url('/category/' ~ c.slug ~ '/') }}"{% if nav_active == c.slug %} aria-current="page"{% endif %}>{{ c.name }}</a></li>
+{% for c in cats %}<li data-c="{{ c.slug }}"><a href="{{ url('/category/' ~ c.slug ~ '/') }}"{% if nav_active == c.slug %} aria-current="page"{% endif %}>{{ c.name }}</a></li>
 {% endfor %}
 </ul>
 <a class="sbtn" href="{{ url('/search/') }}" aria-label="खोजें"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
@@ -61,7 +65,7 @@
 {% if logo %}<img src="{{ url('/img/logo.webp') }}" alt="{{ site.site_name }}" width="{{ logo.w }}" height="{{ logo.h }}" loading="lazy" decoding="async">{% else %}<span class="word">{{ site.site_name }}</span>{% endif %}
 <p>{{ site.tagline }}</p>
 </div>
-<div class="fcol"><h2>श्रेणियाँ</h2><ul>{% for c in cats %}<li><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul></div>
+<div class="fcol"><h2>श्रेणियाँ</h2><ul>{% for c in cats %}<li data-c="{{ c.slug }}"><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul></div>
 <div class="fcol"><h2>जानकारी</h2><ul>{% for p in pages %}<li><a href="{{ url('/' ~ p.slug ~ '/') }}">{{ p.title }}</a></li>{% endfor %}</ul></div>
 <div class="fcol"><h2>जुड़ें</h2><ul>
 <li><a href="{{ url('/feed.xml') }}">RSS फ़ीड</a></li>

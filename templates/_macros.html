@@ -3,7 +3,7 @@
 <div class="cimg">{{ img(a, '(min-width:1024px) 320px, 50vw' if small else '(min-width:1024px) 320px, 100vw', alt=a.image_alt or a.title) }}</div>
 <div class="cbody">
 <span class="cat">{{ a.cat_name }}</span>
-<h3><a href="{{ url(a.path) }}">{{ a.title }}</a></h3>
+<p class="ct"><a href="{{ url(a.path) }}">{{ a.title }}</a></p>
 <time datetime="{{ a.published.isoformat() }}">{{ a.date_hi }}</time>
 </div>
 </article>

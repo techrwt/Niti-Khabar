@@ -387,10 +387,11 @@ def main():
         a["tag_links"] = [dict(name=t, url=(url(f"/tag/{slugify_tag(t)}/") if slugify_tag(t) in tag_pages else None)) for t in a["tags"]]
 
     # ---- homepage
-    latest = arts[:PER_PAGE]
+        latest = arts[:PER_PAGE]
+    shown = {a["slug"] for a in latest}
     sections = []
     for c in cats:
-        items = [a for a in arts if a["category"] == c["slug"]][:4]
+        items = [a for a in arts if a["category"] == c["slug"] and a["slug"] not in shown][:4]
         if items:
             sections.append(dict(slug=c["slug"], name=c["name"], arts=items))
     home_title = site.get("home_title") or f"{site.get('site_name_hi', site['site_name'])} ({site['site_name']}): ताज़ा हिंदी खबरें"

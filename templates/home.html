@@ -25,10 +25,11 @@
 {% endif %}
 {% for s in sections %}
 <section class="block" data-c="{{ s.slug }}" aria-labelledby="h-{{ s.slug }}">
-<h2 class="bh" id="h-{{ s.slug }}"><a href="{{ url('/category/' ~ s.slug ~ '/') }}">{{ s.name }}</a></h2>
+<h2 class="bh" id="h-{{ s.slug }}">{{ s.name }}</h2>
 <div class="grid">{% for a in s.arts %}{{ card(a) }}{% endfor %}</div>
+<p class="more"><a class="alink" href="{{ url('/category/' ~ s.slug ~ '/') }}">{{ s.name }} की सभी खबरें</a></p>
 </section>
 {% endfor %}
-<p class="intro">हर खबर के साथ मूल स्रोत का लिंक दिया जाता है। हमारे काम करने का तरीका जानने के लिए <a href="{{ url('/editorial-policy/') }}">संपादकीय नीति</a> पढ़ें।</p>
+<p class="intro">हर खबर के साथ मूल स्रोत का लिंक दिया जाता है। हमारे काम करने का तरीका जानने के लिए <a href="{{ url('/editorial-policy/') }}">हम खबरें कैसे लिखते हैं</a>, यह जानें।</p>
 {% endif %}
 {% endblock %}

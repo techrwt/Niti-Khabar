@@ -52,7 +52,7 @@
 {% for c in cats %}<li data-c="{{ c.slug }}"><a href="{{ url('/category/' ~ c.slug ~ '/') }}"{% if nav_active == c.slug %} aria-current="page"{% endif %}>{{ c.name }}</a></li>
 {% endfor %}
 </ul>
-<a class="sbtn" href="{{ url('/search/') }}" aria-label="खोजें"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>
+<a class="sbtn" href="{{ url('/search/') }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span class="vh">खोजें</span></a>
 </div>
 </nav>
 </header>
@@ -68,7 +68,7 @@
 <div class="fcol"><h2>श्रेणियाँ</h2><ul>{% for c in cats %}<li data-c="{{ c.slug }}"><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul></div>
 <div class="fcol"><h2>जानकारी</h2><ul>{% for p in pages %}<li><a href="{{ url('/' ~ p.slug ~ '/') }}">{{ p.title }}</a></li>{% endfor %}</ul></div>
 <div class="fcol"><h2>जुड़ें</h2><ul>
-<li><a href="{{ url('/feed.xml') }}">RSS फ़ीड</a></li>
+<li><a href="{{ url('/feed.xml') }}">फ़ीड सब्सक्राइब करें</a></li>
 {% for k, label in social_labels %}{% if site.social.get(k) %}<li><a href="{{ site.social[k] }}" rel="noopener me" target="_blank">{{ label }}</a></li>{% endif %}{% endfor %}
 </ul></div>
 </div>

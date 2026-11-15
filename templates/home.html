@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% from "_macros.html" import card, row %}
 {% block main %}
-<h1 class="vh">{{ site.site_name }}: {{ site.tagline }}</h1>
+<h1 class="vh">{{ title }}</h1>
+<p class="intro">{{ site.description }}</p>
 {% if not latest %}
 <section class="empty"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13a2 2 0 0 1 2 2v12H6a2 2 0 0 1-2-2z"/><path d="M19 9h1a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2"/><path d="M8 9h7M8 13h7M8 16h4"/></svg><h2>जल्द ही खबरें आएँगी</h2><p>हम पहली खबरें तैयार कर रहे हैं। कुछ देर बाद दोबारा आइए।</p></section>
 {% else %}
 <section class="top" aria-label="मुख्य खबरें">
 <article class="lead" data-c="{{ latest[0].category }}">
-<a class="cimg" href="{{ url(latest[0].path) }}" tabindex="-1" aria-hidden="true">{{ img(latest[0], '(min-width:1024px) 760px, 100vw', lead=True) }}</a>
-<a class="cat" href="{{ url('/category/' ~ latest[0].category ~ '/') }}">{{ latest[0].cat_name }}</a>
+<div class="cimg">{{ img(latest[0], '(min-width:1024px) 760px, 100vw', lead=True, alt=latest[0].image_alt or latest[0].title) }}</div>
+<span class="cat">{{ latest[0].cat_name }}</span>
 <h2><a href="{{ url(latest[0].path) }}">{{ latest[0].title }}</a></h2>
 <p>{{ latest[0].summary }}</p>
 <time datetime="{{ latest[0].published.isoformat() }}">{{ latest[0].date_hi }}</time>
@@ -28,5 +29,6 @@
 <div class="grid">{% for a in s.arts %}{{ card(a) }}{% endfor %}</div>
 </section>
 {% endfor %}
+<p class="intro">हर खबर के साथ मूल स्रोत का लिंक दिया जाता है। हमारे काम करने का तरीका जानने के लिए <a href="{{ url('/editorial-policy/') }}">संपादकीय नीति</a> पढ़ें।</p>
 {% endif %}
 {% endblock %}

@@ -65,7 +65,6 @@
 {% if logo %}<img src="{{ url('/img/logo.webp') }}" alt="{{ site.site_name }}" width="{{ logo.w }}" height="{{ logo.h }}" loading="lazy" decoding="async">{% else %}<span class="word">{{ site.site_name }}</span>{% endif %}
 <p>{{ site.tagline }}</p>
 </div>
-<div class="fcol"><h2>श्रेणियाँ</h2><ul>{% for c in cats %}<li data-c="{{ c.slug }}"><a href="{{ url('/category/' ~ c.slug ~ '/') }}">{{ c.name }}</a></li>{% endfor %}</ul></div>
 <div class="fcol"><h2>जानकारी</h2><ul>{% for p in pages %}<li><a href="{{ url('/' ~ p.slug ~ '/') }}">{{ p.title }}</a></li>{% endfor %}</ul></div>
 <div class="fcol"><h2>जुड़ें</h2><ul>
 <li><a href="{{ url('/feed.xml') }}">फ़ीड सब्सक्राइब करें</a></li>

@@ -163,7 +163,7 @@ def process_article_images(arts, rep):
             hh = max(1, round(oh * w / ow))
             cp = CACHE / f"{stem}-{w}-{h}-q75.webp"
             if not cp.exists():
-            im.resize((w, hh), Image.LANCZOS).save(cp, "WEBP", quality=75, method=6)
+                im.resize((w, hh), Image.LANCZOS).save(cp, "WEBP", quality=75, method=6)
             shutil.copyfile(cp, PUBLIC / "img" / f"{stem}-{w}.webp")
             vs[w] = hh
         og = CACHE / f"{stem}-og-{h}.jpg"
@@ -387,7 +387,7 @@ def main():
         a["tag_links"] = [dict(name=t, url=(url(f"/tag/{slugify_tag(t)}/") if slugify_tag(t) in tag_pages else None)) for t in a["tags"]]
 
     # ---- homepage
-        latest = arts[:PER_PAGE]
+    latest = arts[:PER_PAGE]
     shown = {a["slug"] for a in latest}
     sections = []
     for c in cats:

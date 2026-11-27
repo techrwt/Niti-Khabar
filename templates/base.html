@@ -28,7 +28,8 @@
 <link rel="alternate" type="application/rss+xml" title="{{ site.site_name }} RSS" href="{{ url('/feed.xml') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700;800&family=Noto+Serif+Devanagari:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700;800&family=Noto+Serif+Devanagari:wght@600;700;800&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700;800&family=Noto+Serif+Devanagari:wght@600;700;800&display=swap"></noscript>
 <link rel="stylesheet" href="{{ url('/' ~ assets.css) }}">
 {% for j in jsonld %}<script type="application/ld+json">{{ j|tojson_ld }}</script>
 {% endfor %}

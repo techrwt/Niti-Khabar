@@ -161,9 +161,9 @@ def process_article_images(arts, rep):
         vs = {}
         for w in widths:
             hh = max(1, round(oh * w / ow))
-            cp = CACHE / f"{stem}-{w}-{h}.webp"
+            cp = CACHE / f"{stem}-{w}-{h}-q75.webp"
             if not cp.exists():
-                im.resize((w, hh), Image.LANCZOS).save(cp, "WEBP", quality=80, method=4)
+            im.resize((w, hh), Image.LANCZOS).save(cp, "WEBP", quality=75, method=6)
             shutil.copyfile(cp, PUBLIC / "img" / f"{stem}-{w}.webp")
             vs[w] = hh
         og = CACHE / f"{stem}-og-{h}.jpg"
